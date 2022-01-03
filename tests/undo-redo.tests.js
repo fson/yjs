@@ -280,10 +280,13 @@ export const testUndoDeleteFilter = tc => {
   const map0 = new Y.Map()
   map0.set('hi', 1)
   const map1 = new Y.Map()
+  // @ts-ignore
   array0.insert(0, [map0, map1])
   undoManager.undo()
   t.assert(array0.length === 1)
+  // @ts-ignore
   array0.get(0)
+  // @ts-ignore
   t.assert(Array.from(array0.get(0).keys()).length === 1)
 }
 
