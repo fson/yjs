@@ -16179,6 +16179,7 @@
     });
     // should produce an update with an empty state vector (because previous ops are missing)
     ydoc.getText().insert(0, 'a');
+    // @ts-ignore
     assert(sv !== null && sv.byteLength === 1 && sv[0] === 0);
   };
 
@@ -16490,10 +16491,13 @@
     const map0 = new YMap();
     map0.set('hi', 1);
     const map1 = new YMap();
+    // @ts-ignore
     array0.insert(0, [map0, map1]);
     undoManager.undo();
     assert(array0.length === 1);
+    // @ts-ignore
     array0.get(0);
+    // @ts-ignore
     assert(Array.from(array0.get(0).keys()).length === 1);
   };
 
