@@ -6609,7 +6609,8 @@
       this.redoing = false;
       this.doc = /** @type {Doc} */ (this.scope[0].doc);
       this.lastChange = 0;
-      this.doc.on('afterTransaction', /** @param {Transaction} transaction */ transaction => {
+       /** @param {Transaction} transaction */
+      this._afterTransaction = transaction => {
         // Only track certain transactions
         if (!this.scope.some(type => transaction.changedParentTypes.has(type)) || (!this.trackedOrigins.has(transaction.origin) && (!transaction.origin || !this.trackedOrigins.has(transaction.origin.constructor)))) {
           return
@@ -6655,7 +6656,13 @@
         if (didAdd) {
           this.emit('stack-item-added', [{ stackItem: stack[stack.length - 1], origin: transaction.origin, type: undoing ? 'redo' : 'undo', changedParentTypes: transaction.changedParentTypes }, this]);
         }
-      });
+      };
+      this.doc.on('afterTransaction', this._afterTransaction);
+    }
+
+    destroy () {
+      super.destroy();
+      this.doc.off('afterTransaction', this._afterTransaction);
     }
 
     clear () {

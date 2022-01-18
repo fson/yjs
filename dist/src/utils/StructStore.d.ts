@@ -21,7 +21,12 @@ export function integretyCheck(store: StructStore): void;
 export function addStruct(store: StructStore, struct: GC | Item): void;
 export function findIndexSS(structs: Array<Item | GC>, clock: number): number;
 export function find(store: StructStore, id: ID): GC | Item;
-export function getItem(arg0: StructStore, arg1: ID): Item;
+/**
+ * Expects that id is actually in store. This function throws or is an infinite loop otherwise.
+ * @private
+ * @function
+ */
+export const getItem: (arg0: StructStore, arg1: ID) => Item;
 export function findIndexCleanStart(transaction: Transaction, structs: Array<Item | GC>, clock: number): number;
 export function getItemCleanStart(transaction: Transaction, id: ID): Item;
 export function getItemCleanEnd(transaction: Transaction, store: StructStore, id: ID): Item;

@@ -42,6 +42,8 @@ export class UndoManager extends Observable<"stack-item-added" | "stack-item-pop
     redoing: boolean;
     doc: Doc;
     lastChange: number;
+    /** @param {Transaction} transaction */
+    _afterTransaction: (transaction: Transaction) => void;
     clear(): void;
     /**
      * UndoManager merges Undo-StackItem if they are created within time-gap
@@ -105,5 +107,6 @@ declare class StackItem {
     meta: Map<any, any>;
 }
 import { Doc } from "./Doc.js";
+import { Transaction } from "./Transaction.js";
 import { DeleteSet } from "./DeleteSet.js";
 export {};
